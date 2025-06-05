@@ -1,0 +1,28 @@
+{% extends "core/base.html" %}
+
+{% block title %}{{ item.name }}{% endblock %}
+
+{% block content %}
+<article>
+    {% if item.image %}
+        <a href="{{ item.image.url }}">
+            <img src="{{ item.image.url }}" alt="Image of {{ item.name }}">
+        </a>
+    {% endif %}
+    <h3>{{ item.name }}</h3>
+    {% if item.out_of_stock %}
+        <p><strong>Out of Stock</strong></p>
+    {% else %}
+        <p><strong>In Stock</strong></p>
+    {% endif %}
+    <p><strong>Price: </strong> {{ item.price }} {{ item.currency }}</p>
+    <p><strong>Category: </strong> {{ item.category }}</p>
+    <p><strong>Details: </strong><br>{{ item.detail }}</p>
+    {% if perms.menu.can_edit_item %}
+        <a href="{% url 'menu:edit_item' pk=item.id %}">Edit</a>
+    {% endif %}
+    {% if perms.menu.can_delete_item %}
+        <a href="{% url 'menu:delete_item' pk=item.id %}">Delete</a>
+    {% endif %}
+</article>
+{% endblock %}

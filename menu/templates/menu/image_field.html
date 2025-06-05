@@ -1,0 +1,17 @@
+<div>
+    {% if form.instance.image %}
+        <label>Current Image</label>
+        <a href="{{ form.instance.image.url }}">
+            <img src="{{ form.instance.image.url }}" alt="Current image for {{ form.instance }}">
+        </a>
+        <input type="checkbox" name="{{ field.html_name }}-clear" id="{{ field.id_for_label }}-clear">
+        <label for="{{ field.id_for_label }}-clear">
+            {{ field.field.widget.clear_checkbox_label }}
+        </label><br>
+        <label for="{{ field.id_for_label }}">Change {{ field.label }}</label>
+    {% else %}
+        <label for="{{ field.id_for_label }}">{{ field.label }}</label>
+    {% endif %}
+    <img id="image-preview" style="display: none;" alt="Image preview"/>
+    <input type="file" name="{{ field.name }}" accept="image/*" id="{{ field.id_for_label }}">
+</div>

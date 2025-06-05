@@ -22,6 +22,7 @@
     </content>
     <orderEntry type="jdk" jdkName="Python 3.13 virtualenv at C:\Users\Aung\python-projects\website-projects\menu_listing_website\.venv" jdkType="Python SDK" />
     <orderEntry type="sourceFolder" forTests="false" />
+    <orderEntry type="library" name="bootstrap-icons" level="application" />
   </component>
   <component name="PyDocumentationSettings">
     <option name="format" value="PLAIN" />

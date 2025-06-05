@@ -3,26 +3,33 @@
 {% block title %}{{ item.name }}{% endblock %}
 
 {% block content %}
-<article>
-    {% if item.image %}
-        <a href="{{ item.image.url }}">
-            <img src="{{ item.image.url }}" alt="Image of {{ item.name }}">
-        </a>
-    {% endif %}
-    <h3>{{ item.name }}</h3>
-    {% if item.out_of_stock %}
-        <p><strong>Out of Stock</strong></p>
-    {% else %}
-        <p><strong>In Stock</strong></p>
-    {% endif %}
-    <p><strong>Price: </strong> {{ item.price }} {{ item.currency }}</p>
-    <p><strong>Category: </strong> {{ item.category }}</p>
-    <p><strong>Details: </strong><br>{{ item.detail }}</p>
-    {% if perms.menu.can_edit_item %}
-        <a href="{% url 'menu:edit_item' pk=item.id %}">Edit</a>
-    {% endif %}
-    {% if perms.menu.can_delete_item %}
-        <a href="{% url 'menu:delete_item' pk=item.id %}">Delete</a>
-    {% endif %}
-</article>
+<div class="container my-3 border rounded">
+    <div class="row d-flex flex-row-reverse flex-md-row align-items-center">
+        <div class="col-md-6 text-center p-4">
+            {% if item.image %}
+                <a href="{{ item.image.url }}">
+                    <img src="{{ item.image.url }}" alt="Image of {{ item.name }}" class="img-fluid rounded shadow-sm">
+                </a>
+            {% endif %}
+        </div>
+        <div class="col-md-6 mt-4 mt-md-0 p-4">
+            <h3>{{ item.name }}</h3>
+            {% if item.out_of_stock %}
+                <p class="text-danger"><strong>Out of Stock</strong></p>
+            {% else %}
+                <p class="text-success"><strong>In Stock</strong></p>
+            {% endif %}
+            <p><strong>Price:</strong> {{ item.price }} {{ item.currency }}</p>
+            <p><strong>Category:</strong> {{ item.category }}</p>
+            <p><strong>Details:</strong><br>{{ item.detail }}</p>
+
+            {% if perms.menu.can_edit_item %}
+                <a href="{% url 'menu:edit_item' pk=item.id %}" class="btn btn-primary me-2">Edit</a>
+            {% endif %}
+            {% if perms.menu.can_delete_item %}
+                <a href="{% url 'menu:delete_item' pk=item.id %}" class="btn btn-danger">Delete</a>
+            {% endif %}
+        </div>
+    </div>
+</div>
 {% endblock %}

@@ -1,6 +1,7 @@
 from django.db import models
 from django.contrib.auth.models import User
 
+
 # Custom function to generate permissions
 def custom_permissions(model_name: str):
     permissions = [
@@ -9,6 +10,7 @@ def custom_permissions(model_name: str):
         (f'can_delete_{model_name}', f'Can delete {model_name}'),
     ]
     return permissions
+
 
 class Currency(models.Model):
     name = models.CharField(max_length=255)
@@ -22,18 +24,25 @@ class Currency(models.Model):
     def __str__(self):
         return self.name
 
+
 class Category(models.Model):
     image = models.ImageField(upload_to='category/%Y/%m/%d/', null=True, blank=True)
     name = models.CharField(max_length=255)
     parent = models.ForeignKey('self', null=True, blank=True, related_name='subcategories', on_delete=models.CASCADE)
+    created_by = models.ForeignKey(User, related_name='category', on_delete=models.PROTECT, null=True, blank=True)
+    created_at = models.DateTimeField(auto_now_add=True)
 
     class Meta:
         ordering = ('name',)
         verbose_name_plural = 'Categories'
         permissions = custom_permissions('category')
+        permissions.append(
+            ('can_view_category', 'Can view category')
+        )
 
     def __str__(self):
         return self.name
+
 
 class Item(models.Model):
     image = models.ImageField(upload_to='item/%Y/%m/%d/', null=True, blank=True)
@@ -43,7 +52,7 @@ class Item(models.Model):
     currency = models.ForeignKey(Currency, null=True, related_name='item', on_delete=models.PROTECT)
     detail = models.TextField(blank=True, null=True)
     out_of_stock = models.BooleanField(default=False)
-    created_by = models.ForeignKey(User, related_name='item', on_delete=models.CASCADE)
+    created_by = models.ForeignKey(User, related_name='item', on_delete=models.PROTECT, null=True, blank=True)
     created_at = models.DateTimeField(auto_now_add=True)
 
     class Meta:

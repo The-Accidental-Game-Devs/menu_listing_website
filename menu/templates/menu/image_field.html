@@ -2,10 +2,12 @@
     {% if form.instance.image %}
         <label class="form-label">Current Image</label><br>
         <a href="{{ form.instance.image.url }}" target="_blank">
-            <img src="{{ form.instance.image.url }}" alt="Current image for {{ form.instance }}" class="img-thumbnail mb-2" style="max-height: 150px;">
+            <img src="{{ form.instance.image.url }}" alt="Current image for {{ form.instance }}"
+                 class="img-thumbnail mb-2" style="max-height: 150px;">
         </a><br>
         <div class="form-check mb-2">
-            <input type="checkbox" class="form-check-input" name="{{ field.html_name }}-clear" id="{{ field.id_for_label }}-clear">
+            <input type="checkbox" class="form-check-input" name="{{ field.html_name }}-clear"
+                   id="{{ field.id_for_label }}-clear">
             <label class="form-check-label" for="{{ field.id_for_label }}-clear">
                 {{ field.field.widget.clear_checkbox_label }}
             </label>

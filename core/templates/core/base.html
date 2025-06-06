@@ -30,10 +30,10 @@
                         <a class="nav-link {% if request.resolver_match.url_name == 'menu' %}active{% endif %}"
                            aria-current="page" href="{% url 'menu:menu' %}">Menu</a>
                     </li>
-                    {% if perms.menu.can_create_item %}
+                    {% if perms.menu.can_view_category %}
                         <li class="nav-item">
-                            <a class="nav-link {% if request.resolver_match.url_name == 'new_item' %}active{% endif %}"
-                               aria-current="page" href="{% url 'menu:new_item' %}">New Item</a>
+                            <a class="nav-link {% if request.resolver_match.url_name == 'category' %}active{% endif %}"
+                               aria-current="page" href="{% url 'menu:category' %}">Category</a>
                         </li>
                     {% endif %}
                     <li class="nav-item">

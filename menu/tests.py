@@ -1,4 +1,3 @@
-
 from django.test import TestCase
 from .models import Currency, Category, Item
 from django.contrib.auth.models import User
@@ -32,6 +31,7 @@ class CurrencyModelTest(TestCase):
         self.assertIn(('can_edit_currency', 'Can edit currency'), perms)
         self.assertIn(('can_delete_currency', 'Can delete currency'), perms)
 
+
 class CategoryModelTest(TestCase):
     def setUp(self):
         self.parent = Category.objects.create(name="Food")
@@ -56,6 +56,7 @@ class CategoryModelTest(TestCase):
         self.assertIn(('can_create_category', 'Can create category'), perms)
         self.assertIn(('can_edit_category', 'Can edit category'), perms)
         self.assertIn(('can_delete_category', 'Can delete category'), perms)
+
 
 class ItemModelTest(TestCase):
     def setUp(self):

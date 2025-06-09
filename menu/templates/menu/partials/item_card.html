@@ -1,0 +1,38 @@
+{% load static %}
+<div class="col-sm-6 col-md-4 col-lg-3 mb-4">
+    <div class="card h-100">
+
+        <a href="{% url 'menu:item_detail' pk=item.id %}">
+            {% if item.image %}
+                <div class="ratio ratio-4x3 bg-body-secondary rounded">
+                    <img class="card-img-top img-fluid object-fit-cover"
+                         src="{{ item.image.url }}" alt="{{ item.name }}">
+                </div>
+            {% else %}
+                <div class="ratio ratio-4x3 bg-body-secondary rounded">
+                    <img class="card-img-top img-fluid object-fit-cover"
+                         src="{% static 'global/img/default_img_400x300.webp' %}" alt="{{ item.name }}">
+                </div>
+            {% endif %}
+        </a>
+
+        <div class="card-body d-flex flex-column">
+            <h5 class="card-title">{{ item.name }}</h5>
+            {% if item.out_of_stock %}
+                <p class="text-danger"><strong>Out of Stock</strong></p>
+            {% else %}
+                <p class="text-success"><strong>In Stock</strong></p>
+            {% endif %}
+            <p><strong>Price: </strong>{{ item.price }} {{ item.currency }}</p>
+            <div>
+                {% if perms.menu.can_edit_item %}
+                    <a href="{% url 'menu:edit_item' pk=item.id %}"
+                       class="btn btn-primary btn-sm">Edit</a>
+                {% endif %}
+                {% if perms.menu.can_delete_item %}
+                    <a href="{% url 'menu:delete_item' pk=item.id %}" class="btn btn-danger btn-sm">Delete</a>
+                {% endif %}
+            </div>
+        </div>
+    </div>
+</div>

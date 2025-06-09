@@ -1,20 +1,28 @@
 {% extends "core/base.html" %}
-
+{% load static %}
 {% block title %}{{ item.name }}{% endblock %}
 
 {% block content %}
     <div class="container my-3 border rounded">
-        <div class="row d-flex flex-row-reverse flex-md-row align-items-center">
-            <div class="col-md-6 text-center p-4">
+        <div class="row d-flex flex-row-reverse flex-md-row">
+            <div class="col-md-6 p-4">
                 {% if item.image %}
                     <a href="{{ item.image.url }}">
-                        <img src="{{ item.image.url }}" alt="Image of {{ item.name }}"
-                             class="img-fluid rounded shadow-sm">
+                        <div class="ratio ratio-1x1 bg-body-secondary rounded">
+                            <img class="card-img-top img-fluid object-fit-cover rounded"
+                                 src="{{ item.image.url }}" alt="{{ item.name }}">
+                        </div>
                     </a>
+                {% else %}
+                    <div class="ratio ratio-1x1 bg-body-secondary rounded">
+                        <img class="card-img-top img-fluid object-fit-cover rounded"
+                             src="{% static 'global/img/default_img_1000x1000.webp' %}" alt="{{ item.name }}">
+                    </div>
                 {% endif %}
             </div>
             <div class="col-md-6 mt-4 mt-md-0 p-4">
                 <h3>{{ item.name }}</h3>
+                <hr class="my-4">
                 {% if item.out_of_stock %}
                     <p class="text-danger"><strong>Out of Stock</strong></p>
                 {% else %}
@@ -22,14 +30,17 @@
                 {% endif %}
                 <p><strong>Price:</strong> {{ item.price }} {{ item.currency }}</p>
                 <p><strong>Category:</strong> {{ item.category }}</p>
-                <p><strong>Details:</strong><br>{{ item.detail }}</p>
+                <p><strong>Details:</strong></p>
+                <p>{{ item.detail }}</p>
 
-                {% if perms.menu.can_edit_item %}
-                    <a href="{% url 'menu:edit_item' pk=item.id %}" class="btn btn-primary me-2">Edit</a>
-                {% endif %}
-                {% if perms.menu.can_delete_item %}
-                    <a href="{% url 'menu:delete_item' pk=item.id %}" class="btn btn-danger">Delete</a>
-                {% endif %}
+                <div>
+                    {% if perms.menu.can_edit_item %}
+                        <a href="{% url 'menu:edit_item' pk=item.id %}" class="btn btn-primary me-2">Edit</a>
+                    {% endif %}
+                    {% if perms.menu.can_delete_item %}
+                        <a href="{% url 'menu:delete_item' pk=item.id %}" class="btn btn-danger">Delete</a>
+                    {% endif %}
+                </div>
             </div>
         </div>
     </div>

@@ -9,7 +9,7 @@
             {% for field in form %}
                 <div class="mb-3">
                     {% if field.name == "image" %}
-                        {% include "menu/image_field.html" with field=field %}
+                        {% include "menu/partials/image_field.html" with field=field %}
                     {% else %}
                         <label for="{{ field.id_for_label }}" class="form-label">{{ field.label }}</label>
                         {{ field }}

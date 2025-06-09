@@ -1,6 +1,7 @@
-from django.test import TestCase
-from .models import Currency, Category, Item
 from django.contrib.auth.models import User
+from django.test import TestCase
+
+from .models import Currency, Category, Item
 
 
 class CurrencyModelTest(TestCase):

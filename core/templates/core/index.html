@@ -3,7 +3,5 @@
 {% block title %}{{ title }}{% endblock %}
 
 {% block content %}
-    <div class="container-fluid">
-        <h1>This is a {{ title }} page.</h1>
-    </div>
+    {% include 'core/partials/carousel.html' %}
 {% endblock %}

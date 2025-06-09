@@ -1,11 +1,11 @@
+from django.contrib import messages
 from django.contrib.auth.decorators import login_required, permission_required
+from django.db.models import Q
 from django.shortcuts import render, redirect, get_object_or_404
 from django.urls import reverse
-from django.contrib import messages
-from django.db.models import Q
 
-from .models import Item, Category
 from .forms import NewItemForm, EditItemForm, CategoryForm
+from .models import Item, Category
 
 
 @login_required
@@ -29,7 +29,7 @@ def new_item_view(request):
 @login_required
 @permission_required('menu.can_edit_item')
 def edit_item_view(request, pk):
-    item = get_object_or_404(Item, pk=pk, created_by=request.user)
+    item = get_object_or_404(Item, pk=pk)
 
     if request.method == 'POST':
         form = EditItemForm(request.POST, request.FILES, instance=item)
@@ -48,15 +48,14 @@ def edit_item_view(request, pk):
 @login_required
 @permission_required('menu.can_delete_item')
 def delete_item_view(request, pk):
-    item = get_object_or_404(Item, pk=pk, created_by=request.user)
+    item = get_object_or_404(Item, pk=pk)
 
-    if item:
-        print(f'Deleting item" {item}')
-        messages.success(request, f"Deleted item: {item.name}")
+    try:
+        item_name = item.name
         item.delete()
-    else:
-        print('Item not found or not owned by the user')
-        messages.error(request, f"Failed to delete item: {item.name}")
+        messages.success(request, f"Deleted item: {item_name}")
+    except Exception as e:
+        messages.error(request, f"Failed to delete item: {str(e)}")
 
     return redirect('menu:menu')
 
@@ -101,7 +100,7 @@ def new_category_view(request):
             category.created_by = request.user
             category.save()
             messages.success(request, "Category created successfully.")
-            return redirect('menu:menu')
+            return redirect(reverse('menu:category'))
     else:
         form = CategoryForm()
 
@@ -112,7 +111,7 @@ def new_category_view(request):
 @login_required
 @permission_required('menu.can_edit_category')
 def edit_category_view(request, pk):
-    category = get_object_or_404(Category, pk=pk, created_by=request.user)
+    category = get_object_or_404(Category, pk=pk)
 
     if request.method == 'POST':
         form = CategoryForm(request.POST, request.FILES, instance=category)
@@ -120,7 +119,7 @@ def edit_category_view(request, pk):
         if form.is_valid():
             form.save()
             messages.success(request, "Category updated successfully.")
-            return redirect('menu:menu')
+            return redirect(reverse('menu:category'))
 
     else:
         form = CategoryForm(instance=category)
@@ -130,24 +129,25 @@ def edit_category_view(request, pk):
 
 
 @login_required
-@permission_required('menu.can_delete_item')
+@permission_required('menu.can_delete_category')
 def delete_category_view(request, pk):
-    category = get_object_or_404(Category, pk=pk, created_by=request.user)
+    category = get_object_or_404(Category, pk=pk)
 
-    if category:
-        print(f'Deleting item" {category}')
-        messages.success(request, f"Deleted category: {category.name}")
+    try:
+        category_name = category.name
         category.delete()
-    else:
-        print('Category not found or not owned by the user')
-        messages.error(request, f"Failed to delete category: {category.name}")
+        messages.success(request, f"Deleted category: {category_name}")
+    except Exception as e:
+        messages.error(request, f"Failed to delete category: {str(e)}")
 
-    return redirect('menu:menu')
+    return redirect(reverse('menu:category'))
 
 
-@login_required
-@permission_required('menu.can_view_category')
 def category_view(request):
+    search_query = request.GET.get('search', '')
     categories = Category.objects.all()
+    if search_query:
+        categories = categories.filter(Q(name__icontains=search_query))
 
-    return render(request, 'menu/category.html', {'title': 'Category', 'categories': categories, })
+    return render(request, 'menu/category.html',
+                  {'title': 'Category', 'search_query': search_query, 'categories': categories, })

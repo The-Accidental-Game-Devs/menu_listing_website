@@ -1,5 +1,5 @@
-from django.db import models
 from django.contrib.auth.models import User
+from django.db import models
 
 
 # Custom function to generate permissions
@@ -36,9 +36,6 @@ class Category(models.Model):
         ordering = ('name',)
         verbose_name_plural = 'Categories'
         permissions = custom_permissions('category')
-        permissions.append(
-            ('can_view_category', 'Can view category')
-        )
 
     def __str__(self):
         return self.name

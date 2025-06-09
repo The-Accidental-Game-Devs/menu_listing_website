@@ -1,0 +1,10 @@
+<label for="category" class="form-label visually-hidden">Category</label>
+<select id="category" name="category" class="form-select">
+    <option value="">All</option>
+    {% for category in categories %}
+        <option value="{{ category.id }}"
+                {% if category.id == category_filter %}selected{% endif %}>
+            {{ category.name }}
+        </option>
+    {% endfor %}
+</select>

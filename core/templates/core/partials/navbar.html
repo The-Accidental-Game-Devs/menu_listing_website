@@ -1,0 +1,31 @@
+<nav class="navbar navbar-expand-lg bg-body-tertiary">
+    <div class="container-fluid">
+        <a class="navbar-brand" href="{% url 'core:home' %}">Logo</a>
+        <button class="navbar-toggler" type="button" data-bs-toggle="collapse"
+                data-bs-target="#navbarSupportedContent" aria-controls="navbarSupportedContent"
+                aria-expanded="false" aria-label="Toggle navigation">
+            <span class="navbar-toggler-icon"></span>
+        </button>
+        <div class="collapse navbar-collapse" id="navbarSupportedContent">
+            <ul class="navbar-nav me-auto mb-2 mb-lg-0">
+                <li class="nav-item">
+                    <a class="nav-link {% if request.resolver_match.url_name == 'home' %}active{% endif %}"
+                       aria-current="page" href="{% url 'core:home' %}">Home</a>
+                </li>
+                <li class="nav-item">
+                    <a class="nav-link {% if request.resolver_match.url_name == 'menu' %}active{% endif %}"
+                       aria-current="page" href="{% url 'menu:menu' %}">Menu</a>
+                </li>
+                <li class="nav-item">
+                    <a class="nav-link {% if request.resolver_match.url_name == 'category' %}active{% endif %}"
+                       aria-current="page" href="{% url 'menu:category' %}">Category</a>
+                </li>
+                <li class="nav-item">
+                    <a class="nav-link d-flex align-items-center gap-1" href="#" id="theme-toggle">
+                        <i id="theme-icon" class="bi bi-moon"></i> Theme
+                    </a>
+                </li>
+            </ul>
+        </div>
+    </div>
+</nav>

@@ -1,4 +1,5 @@
 from django.urls import path
+
 from .views import new_item_view, edit_item_view, delete_item_view, menu_view, detail_view, new_category_view, \
     edit_category_view, delete_category_view, category_view
 

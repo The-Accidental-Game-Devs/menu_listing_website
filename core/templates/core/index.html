@@ -4,4 +4,19 @@
 
 {% block content %}
     {% include 'core/partials/carousel.html' %}
+
+    <div class="container-fluid p-4">
+        <h2 class="text-center mb-4">Special Items</h2>
+
+        <div class="d-flex justify-content-center">
+            <div class="d-flex overflow-auto gap-4 align-items-center"
+                 style="max-width: 1000px;">
+                {% for item in special_items %}
+                    <div class="flex-shrink-0" style="width: 250px;">
+                        {% include 'menu/partials/item_card.html' with item=item %}
+                    </div>
+                {% endfor %}
+            </div>
+        </div>
+    </div>
 {% endblock %}

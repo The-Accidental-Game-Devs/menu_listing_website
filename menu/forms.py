@@ -15,7 +15,7 @@ class BaseItemForm(forms.ModelForm):
 
     class Meta:
         model = Item
-        fields = ('image', 'name', 'category', 'price', 'currency', 'detail')
+        fields = ('image', 'name', 'category', 'price', 'currency', 'detail', 'is_special')
 
 
 class NewItemForm(BaseItemForm):

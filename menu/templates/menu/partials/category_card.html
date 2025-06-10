@@ -1,18 +1,18 @@
 {% load static %}
 
-<div class="card h-100">
+<div class="card h-100" id="category-{{ category.id }}">
     <a href="{% url 'menu:menu' %}?category={{ category.id }}" class="text-decoration-none text-body">
         {% if category.image %}
             <div class="ratio ratio-4x3 bg-body-secondary rounded">
                 <img class="card-img-top img-fluid object-fit-cover"
                      loading="lazy"
-                     src="{{ category.image.url }}" alt="{{ item.name }}">
+                     src="{{ category.image.url }}" alt="{{ category.name }}">
             </div>
         {% else %}
             <div class="ratio ratio-4x3 bg-body-secondary rounded">
                 <img class="card-img-top img-fluid object-fit-cover"
                      loading="lazy"
-                     src="{% static 'global/img/default_img_400x300.webp' %}" alt="{{ item.name }}">
+                     src="{% static 'global/img/default_img_400x300.webp' %}" alt="{{ category.name }}">
             </div>
         {% endif %}
     </a>
@@ -24,8 +24,9 @@
                    class="btn btn-primary btn-sm">Edit</a>
             {% endif %}
             {% if perms.menu.can_delete_category %}
-                <a href="{% url 'menu:delete_category' pk=category.id %}"
-                   class="btn btn-danger btn-sm">Delete</a>
+                <button href="{% url 'menu:delete_category' pk=category.id %}"
+                        class="btn btn-danger btn-sm delete-category-btn" data-id="{{ category.id }}">Delete
+                </button>
             {% endif %}
         </div>
     </div>

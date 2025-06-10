@@ -1,6 +1,6 @@
 {% load static %}
 
-<div class="card h-100">
+<div class="card h-100" id="item-{{ item.id }}">
 
     <a href="{% url 'menu:item_detail' pk=item.id %}">
         {% if item.image %}
@@ -26,15 +26,20 @@
             <p class="text-success"><strong>In Stock</strong></p>
         {% endif %}
         <p><strong>Price: </strong>{{ item.price }} {{ item.currency }}</p>
-        <div>
-            {% if perms.menu.can_edit_item %}
-                <a href="{% url 'menu:edit_item' pk=item.id %}"
-                   class="btn btn-primary btn-sm">Edit</a>
-            {% endif %}
-            {% if perms.menu.can_delete_item %}
-                <a href="{% url 'menu:delete_item' pk=item.id %}" class="btn btn-danger btn-sm">Delete</a>
-            {% endif %}
-        </div>
+
+        {% if request.resolver_match.url_name == 'menu' %}
+            <div>
+                {% if perms.menu.can_edit_item %}
+                    <a href="{% url 'menu:edit_item' pk=item.id %}"
+                       class="btn btn-primary btn-sm">Edit</a>
+                {% endif %}
+                {% if perms.menu.can_delete_item %}
+                    <button class="btn btn-sm btn-danger delete-item-btn" data-id="{{ item.id }}" data-context="list">
+                        Delete
+                    </button>
+                {% endif %}
+            </div>
+        {% endif %}
     </div>
 </div>
 

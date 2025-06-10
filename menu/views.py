@@ -1,8 +1,11 @@
 from django.contrib import messages
 from django.contrib.auth.decorators import login_required, permission_required
+from django.core.exceptions import PermissionDenied
 from django.db.models import Q
+from django.http import JsonResponse
 from django.shortcuts import render, redirect, get_object_or_404
 from django.urls import reverse
+from django.views.decorators.http import require_POST
 
 from .forms import NewItemForm, EditItemForm, CategoryForm
 from .models import Item, Category
@@ -45,19 +48,28 @@ def edit_item_view(request, pk):
     return render(request, 'menu/form.html', {'title': 'Edit item', 'form': form, 'button_text': 'Update item', })
 
 
-@login_required
-@permission_required('menu.can_delete_item')
-def delete_item_view(request, pk):
+def delete_item_object(pk, user) -> str:
     item = get_object_or_404(Item, pk=pk)
 
-    try:
-        item_name = item.name
-        item.delete()
-        messages.success(request, f"Deleted item: {item_name}")
-    except Exception as e:
-        messages.error(request, f"Failed to delete item: {str(e)}")
+    if not user.has_perm('menu.can_delete_item'):
+        raise PermissionDenied
 
-    return redirect('menu:menu')
+    item_name = item.name
+    item.delete()
+    return item_name
+
+
+@require_POST
+@login_required
+def delete_item_view(request, pk):
+    if request.headers.get('x-requested-with') != 'XMLHttpRequest':
+        return JsonResponse({'success': False, 'message': 'Invalid request'}, status=400)
+
+    try:
+        name = delete_item_object(pk, request.user)
+        return JsonResponse({'success': True, 'message': f'Deleted item: {name}'}, status=200)
+    except Exception as e:
+        return JsonResponse({'success': False, 'message': str(e)}, status=400)
 
 
 def menu_view(request):
@@ -128,19 +140,28 @@ def edit_category_view(request, pk):
                   {'title': 'Edit category', 'form': form, 'button_text': 'Update category', })
 
 
-@login_required
-@permission_required('menu.can_delete_category')
-def delete_category_view(request, pk):
+def delete_category_object(pk, user) -> str:
     category = get_object_or_404(Category, pk=pk)
 
-    try:
-        category_name = category.name
-        category.delete()
-        messages.success(request, f"Deleted category: {category_name}")
-    except Exception as e:
-        messages.error(request, f"Failed to delete category: {str(e)}")
+    if not user.has_perm('menu.can_delete_category'):
+        raise PermissionDenied
 
-    return redirect(reverse('menu:category'))
+    category_name = category.name
+    category.delete()
+    return category_name
+
+
+@require_POST
+@login_required
+def delete_category_view(request, pk):
+    if request.headers.get('x-requested-with') != 'XMLHttpRequest':
+        return JsonResponse({'success': False, 'message': 'Invalid request'}, status=400)
+
+    try:
+        name = delete_category_object(pk, request.user)
+        return JsonResponse({'success': True, 'message': f'Deleted category: {name}'}, status=200)
+    except Exception as e:
+        return JsonResponse({'success': False, 'message': str(e)}, status=400)
 
 
 def category_view(request):

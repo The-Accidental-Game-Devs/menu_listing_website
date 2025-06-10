@@ -1,5 +1,5 @@
 {% extends "core/base.html" %}
-
+{% load static %}
 {% block title %}{{ title }}{% endblock %}
 
 {% block content %}
@@ -20,7 +20,7 @@
 
         <div class="row my-3">
             {% for item in items %}
-                <div class="col-sm-6 col-md-4 col-lg-3 mb-4">
+                <div class="col-sm-6 col-md-4 col-lg-3 mb-4 item">
                     {% include 'menu/partials/item_card.html' %}
                 </div>
             {% endfor %}
@@ -30,4 +30,9 @@
     {% if perms.menu.can_create_item %}
         <a href="{% url 'menu:new_item' %}" class="btn btn-primary position-fixed bottom-0 end-0 mb-3 me-3">New Item</a>
     {% endif %}
+{% endblock %}
+
+{% block scripts %}
+    <script type="module" src="{% static 'menu/js/utils.js' %}"></script>
+    <script type="module" src="{% static 'menu/js/delete_item.js' %}"></script>
 {% endblock %}

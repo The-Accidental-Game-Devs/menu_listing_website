@@ -25,7 +25,8 @@
 </main>
 
 <footer>
-    {% include 'core/partials/footer.html' %}
+    {% block footer %}
+    {% endblock %}
 </footer>
 
 <script src="{% static 'global/js/bootstrap.bundle.min.js' %}"></script>

@@ -35,22 +35,26 @@ footer {
     min-height: 300px;
 }
 
-@media screen and (max-width: 800px) {
+@media screen and (max-width: 992px) {
+    .special-item {
+        min-height: 300px;
+        min-width: 200px;
+    }
+}
+
+@media screen and (max-width: 768px) {
     .carousel-img {
         height: 350px;
     }
+
     .special-item {
-        min-width: 250px;
-        min-height: 150px;
+        min-width: 200px;
+        min-height: 100px;
     }
 }
 
 @media screen and (max-width: 576px) {
     .carousel-img {
         height: 250px;
-    }
-    .special-item {
-        min-width: 200px;
-        min-height: 100px;
     }
 }

@@ -44,9 +44,9 @@ class Category(models.Model):
 class Item(models.Model):
     image = models.ImageField(upload_to='item/%Y/%m/%d/', null=True, blank=True)
     name = models.CharField(max_length=100)
-    category = models.ForeignKey(Category, null=True, blank=True, related_name='item', on_delete=models.PROTECT)
+    category = models.ForeignKey(Category, null=True, blank=True, related_name='item', on_delete=models.SET_NULL)
     price = models.DecimalField(max_digits=12, decimal_places=2)
-    currency = models.ForeignKey(Currency, null=True, related_name='item', on_delete=models.PROTECT)
+    currency = models.ForeignKey(Currency, null=True, related_name='item', on_delete=models.SET_NULL)
     detail = models.TextField(blank=True, null=True)
     is_special = models.BooleanField(default=False)
     out_of_stock = models.BooleanField(default=False)

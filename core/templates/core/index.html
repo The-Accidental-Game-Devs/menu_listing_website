@@ -1,4 +1,5 @@
 {% extends "core/base.html" %}
+{% load static %}
 
 {% block title %}{{ title }}{% endblock %}
 
@@ -12,7 +13,7 @@
             <div class="container justify-content-center border p-2 rounded">
                 <div class="special-item-container">
                     {% for item in special_items %}
-                        <div class="special-item p-2">
+                        <div class="special-item item p-2">
                             {% include 'menu/partials/item_card.html' with item=item %}
                         </div>
                     {% endfor %}
@@ -20,4 +21,8 @@
             </div>
         </div>
     {% endif %}
+{% endblock %}
+
+{% block footer %}
+    {% include 'core/partials/footer.html' %}
 {% endblock %}

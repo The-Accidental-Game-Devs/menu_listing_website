@@ -3,7 +3,7 @@
 {% block title %}{{ item.name }}{% endblock %}
 
 {% block content %}
-    <div class="container my-3 border rounded">
+    <div class="container my-3 border rounded item">
         <div class="row d-flex flex-row-reverse flex-md-row">
             <div class="col-md-6 p-4">
                 {% if item.image %}
@@ -39,10 +39,17 @@
                         <a href="{% url 'menu:edit_item' pk=item.id %}" class="btn btn-primary me-2">Edit</a>
                     {% endif %}
                     {% if perms.menu.can_delete_item %}
-                        <a href="{% url 'menu:delete_item' pk=item.id %}" class="btn btn-danger">Delete</a>
+                        <button class="btn btn-danger me-2 delete-item-btn" data-id="{{ item.id }}"
+                                data-context="detail">Delete
+                        </button>
                     {% endif %}
                 </div>
             </div>
         </div>
     </div>
+{% endblock %}
+
+{% block scripts %}
+    <script type="module" src="{% static 'menu/js/utils.js' %}"></script>
+    <script type="module" src="{% static 'menu/js/delete_item.js' %}"></script>
 {% endblock %}

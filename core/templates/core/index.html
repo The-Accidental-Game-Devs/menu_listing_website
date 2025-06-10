@@ -5,18 +5,19 @@
 {% block content %}
     {% include 'core/partials/carousel.html' %}
 
-    <div class="container-fluid p-4">
-        <h2 class="text-center mb-4">Special Items</h2>
+    {% if special_items %}
+        <div class="container-fluid my-3">
+            <h2 class="text-center mb-4">Special Items</h2>
 
-        <div class="d-flex justify-content-center">
-            <div class="d-flex overflow-auto gap-4 align-items-center"
-                 style="max-width: 1000px;">
-                {% for item in special_items %}
-                    <div class="flex-shrink-0" style="width: 250px;">
-                        {% include 'menu/partials/item_card.html' with item=item %}
-                    </div>
-                {% endfor %}
+            <div class="container justify-content-center border p-2 rounded">
+                <div class="special-item-container">
+                    {% for item in special_items %}
+                        <div class="special-item p-2">
+                            {% include 'menu/partials/item_card.html' with item=item %}
+                        </div>
+                    {% endfor %}
+                </div>
             </div>
         </div>
-    </div>
+    {% endif %}
 {% endblock %}

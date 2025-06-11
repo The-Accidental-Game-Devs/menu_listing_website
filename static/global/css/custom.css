@@ -21,7 +21,7 @@ footer {
     display: block;
 }
 
-.special-item-container {
+.special-display-container {
     width: 100%;
     height: auto;
     display: flex;
@@ -32,29 +32,39 @@ footer {
 
 .special-item {
     min-width: 400px;
-    min-height: 300px;
+    min-height: 400px;
 }
 
 @media screen and (max-width: 992px) {
+    .carousel-img {
+        height: 400px;
+    }
+
     .special-item {
+        min-width: 300px;
         min-height: 300px;
-        min-width: 200px;
+
     }
 }
 
 @media screen and (max-width: 768px) {
     .carousel-img {
-        height: 350px;
+        height: 300px;
     }
 
     .special-item {
         min-width: 200px;
-        min-height: 100px;
+        min-height: 200px;
     }
 }
 
 @media screen and (max-width: 576px) {
     .carousel-img {
         height: 250px;
+    }
+
+    .special-item {
+        min-width: 180px;
+        min-height: 180px;
     }
 }

@@ -25,10 +25,9 @@
         {% else %}
             <p class="text-success"><strong>In Stock</strong></p>
         {% endif %}
-        <p><strong>Price: </strong>{{ item.price }} {{ item.currency }}</p>
-
         {% if request.resolver_match.url_name == 'menu' %}
             <div>
+                <p><strong>Price: </strong>{{ item.price }} {{ item.currency }}</p>
                 {% if perms.menu.can_edit_item %}
                     <a href="{% url 'menu:edit_item' pk=item.id %}"
                        class="btn btn-primary btn-sm">Edit</a>

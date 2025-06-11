@@ -1,0 +1,7 @@
+{% for item in items %}
+    <div class="col-sm-6 col-md-4 col-lg-3 mb-4 item" id="item-{{ item.id }}">
+        {% include 'menu/partials/item_card.html' %}
+    </div>
+{% empty %}
+    <p>No items found.</p>
+{% endfor %}

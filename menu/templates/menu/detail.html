@@ -3,8 +3,8 @@
 {% block title %}{{ item.name }}{% endblock %}
 
 {% block content %}
-    <div class="container my-3 border rounded item">
-        <div class="row d-flex flex-row-reverse flex-md-row">
+    <div class="container my-3 border rounded" id="item-container">
+        <div class="row d-flex flex-row-reverse flex-md-row item" id="item-{{ item.id }}">
             <div class="col-md-6 p-4">
                 {% if item.image %}
                     <a href="{{ item.image.url }}">
@@ -17,6 +17,7 @@
                 {% else %}
                     <div class="ratio ratio-1x1 bg-body-secondary rounded">
                         <img class="card-img-top img-fluid object-fit-cover rounded"
+                             loading="lazy"
                              src="{% static 'global/img/default_img_1000x1000.webp' %}" alt="{{ item.name }}">
                     </div>
                 {% endif %}
@@ -30,7 +31,7 @@
                     <p class="text-success"><strong>In Stock</strong></p>
                 {% endif %}
                 <p><strong>Price:</strong> {{ item.price }} {{ item.currency }}</p>
-                <p><strong>Category:</strong> {{ item.category }}</p>
+                <p><strong>Category:</strong> {{ item.category.name }}</p>
                 <p><strong>Details:</strong></p>
                 <p>{{ item.detail }}</p>
 
@@ -50,6 +51,5 @@
 {% endblock %}
 
 {% block scripts %}
-    <script type="module" src="{% static 'menu/js/utils.js' %}"></script>
     <script type="module" src="{% static 'menu/js/delete_item.js' %}"></script>
 {% endblock %}

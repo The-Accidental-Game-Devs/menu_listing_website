@@ -4,6 +4,7 @@ from django.core.exceptions import PermissionDenied
 from django.db.models import Q
 from django.http import JsonResponse
 from django.shortcuts import render, redirect, get_object_or_404
+from django.template.loader import render_to_string
 from django.urls import reverse
 from django.views.decorators.http import require_POST
 
@@ -38,8 +39,14 @@ def edit_item_view(request, pk):
         form = EditItemForm(request.POST, request.FILES, instance=item)
 
         if form.is_valid():
-            form.save()
-            messages.success(request, "Item updated successfully.")
+            if form.has_changed():
+                changed_fields = form.changed_data  # List of changed field names
+                instance = form.save(commit=False)
+                instance.save(update_fields=changed_fields)
+                form.save_m2m()
+                messages.success(request, "Item updated successfully.")
+            else:
+                messages.info(request, "No changes detected.")
             return redirect(reverse('menu:item_detail', args=[item.pk]))
 
     else:
@@ -90,9 +97,12 @@ def menu_view(request):
     if category_filter:
         items = items.filter(category_id=category_filter)
 
-    return render(request, 'menu/menu.html',
-                  {'title': 'Menu', 'items': items, 'search_query': search_query, 'categories': categories,
-                   'category_filter': category_filter, })
+    if request.headers.get('x-requested-with') == 'XMLHttpRequest':
+        html = render_to_string('menu/partials/item_list.html', {'items': items}, request=request)
+        return JsonResponse({'html': html})
+
+    return render(request, 'menu/menu.html', {'title': 'Menu', 'search_query': search_query, 'categories': categories,
+                                              'category_filter': category_filter, })
 
 
 def detail_view(request, pk):
@@ -129,8 +139,14 @@ def edit_category_view(request, pk):
         form = CategoryForm(request.POST, request.FILES, instance=category)
 
         if form.is_valid():
-            form.save()
-            messages.success(request, "Category updated successfully.")
+            if form.has_changed():
+                changed_fields = form.changed_data
+                instance = form.save(commit=False)
+                instance.save(update_fields=changed_fields)
+                form.save_m2m()
+                messages.success(request, "Category updated successfully.")
+            else:
+                messages.info(request, "No changes detected.")
             return redirect(reverse('menu:category'))
 
     else:
@@ -170,5 +186,8 @@ def category_view(request):
     if search_query:
         categories = categories.filter(Q(name__icontains=search_query))
 
-    return render(request, 'menu/category.html',
-                  {'title': 'Category', 'search_query': search_query, 'categories': categories, })
+    if request.headers.get('x-requested-with') == 'XMLHttpRequest':
+        html = render_to_string('menu/partials/category_list.html', {'categories': categories}, request=request)
+        return JsonResponse({'html': html})
+
+    return render(request, 'menu/category.html', {'title': 'Category', 'search_query': search_query, })

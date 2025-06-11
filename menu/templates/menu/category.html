@@ -9,27 +9,24 @@
             <form method="GET" class="w-100">
                 <div class="input-group">
                     {% include 'menu/partials/search_bar.html' %}
-                    <button type="submit" class="btn btn-primary">
+                    <button type="button" class="btn btn-primary item-search-btn">
                         <i class="bi bi-search"></i>
                     </button>
                 </div>
             </form>
         </div>
-        <div class="row my-3">
-            {% for category in categories %}
-                <div class="col-sm-6 col-md-4 col-lg-3 mb-4 category">
-                    {% include 'menu/partials/category_card.html' %}
-                </div>
-            {% endfor %}
+        <div class="row my-3" id="category-container">
         </div>
     </div>
-    {% if perms.menu.can_create_item %}
+    {% if perms.menu.can_create_category %}
         <a href="{% url 'menu:new_category' %}" class="btn btn-primary position-fixed bottom-0 end-0 mb-3 me-3">New
             Category</a>
     {% endif %}
 {% endblock %}
 
 {% block scripts %}
-    <script type="module" src="{% static 'menu/js/utils.js' %}"></script>
-    <script type="module" src="{% static 'menu/js/delete_category.js' %}"></script>
+    <script src="{% static 'menu/js/fetch_category.js' %}"></script>
+    {% if perms.menu.can_delete_category %}
+        <script type="module" src="{% static 'menu/js/delete_category.js' %}"></script>
+    {% endif %}
 {% endblock %}

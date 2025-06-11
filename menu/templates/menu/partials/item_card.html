@@ -1,13 +1,12 @@
 {% load static %}
-
-<div class="card h-100" id="item-{{ item.id }}">
+<div class="card h-100">
 
     <a href="{% url 'menu:item_detail' pk=item.id %}">
-        {% if item.image %}
+        {% if item.thumbnail %}
             <div class="ratio ratio-4x3 bg-body-secondary rounded">
                 <img class="card-img-top img-fluid object-fit-cover"
                      loading="lazy"
-                     src="{{ item.image.url }}" alt="{{ item.name }}">
+                     src="{{ item.thumbnail.url }}" alt="{{ item.name }}">
             </div>
         {% else %}
             <div class="ratio ratio-4x3 bg-body-secondary rounded">
@@ -33,7 +32,8 @@
                        class="btn btn-primary btn-sm">Edit</a>
                 {% endif %}
                 {% if perms.menu.can_delete_item %}
-                    <button class="btn btn-sm btn-danger delete-item-btn" data-id="{{ item.id }}" data-context="list">
+                    <button class="btn btn-sm btn-danger delete-item-btn" data-id="{{ item.id }}"
+                            data-context="list">
                         Delete
                     </button>
                 {% endif %}

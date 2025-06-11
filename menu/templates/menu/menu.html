@@ -11,19 +11,14 @@
                         {% include 'menu/partials/category_filter.html' %}
                     </div>
                     {% include 'menu/partials/search_bar.html' %}
-                    <button type="submit" class="btn btn-primary">
+                    <button type="submit" class="btn btn-primary item-search-btn">
                         <i class="bi bi-search"></i>
                     </button>
                 </div>
             </form>
         </div>
 
-        <div class="row my-3">
-            {% for item in items %}
-                <div class="col-sm-6 col-md-4 col-lg-3 mb-4 item">
-                    {% include 'menu/partials/item_card.html' %}
-                </div>
-            {% endfor %}
+        <div class="row my-3" id="item-container">
         </div>
     </div>
 
@@ -33,6 +28,8 @@
 {% endblock %}
 
 {% block scripts %}
-    <script type="module" src="{% static 'menu/js/utils.js' %}"></script>
-    <script type="module" src="{% static 'menu/js/delete_item.js' %}"></script>
+    <script src={% static 'menu/js/fetch_item.js' %}></script>
+    {% if perms.menu.can_delete_item %}
+        <script type="module" src="{% static 'menu/js/delete_item.js' %}"></script>
+    {% endif %}
 {% endblock %}

@@ -17,6 +17,7 @@
         <label for="{{ field.id_for_label }}" class="form-label">{{ field.label }}</label>
     {% endif %}
 
-    <img id="image-preview" style="display: none; max-width: 400px; max-height: 300px;" class="img-thumbnail mb-2" alt="Image preview"/>
+    <img id="image-preview" style="display: none; max-width: 400px; max-height: 300px;" class="img-thumbnail mb-2"
+         alt="Image preview"/>
     <input type="file" name="{{ field.name }}" accept="image/*" id="{{ field.id_for_label }}" class="form-control mt-2">
 </div>

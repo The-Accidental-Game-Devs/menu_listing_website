@@ -17,7 +17,7 @@ machine for development purposes.
 
 To run this project, you'll need:
 
-* **Python**: 3.13.3 or higher (or compatible with Django's latest versions).
+* **Python**: 3.8 or higher (or compatible with Django's latest versions).
 * **Pip**: Ensure you have a recent version of pip installed.
 
 ---
@@ -27,7 +27,7 @@ To run this project, you'll need:
 1. **Clone the repository**:
    Start by cloning the project's repository to your local machine:
    ```bash
-   git clone [https://github.com/The-Accidental-Game-Devs/menu_listing_website.git](https://github.com/The-Accidental-Game-Devs/menu_listing_website.git)
+   git clone https://github.com/The-Accidental-Game-Devs/menu_listing_website.git
    ```
 
 2. **Navigate to the project directory**:
@@ -64,11 +64,12 @@ To run this project, you'll need:
    nano .env  # For Linux/macOS, or use any text editor like VS Code
    ```
 
-7. **Add your Django `SECRET_KEY`**:
+7. **Add your Django `DJANGO_SECRET_KEY`**:
    Paste the following line into your `.env` file. **Replace `YourStrongUniqueSecretKey` with a truly unique and complex
-   key.** This key is critical for security.
+   key.** This key is critical for security. 
    ```bash
-   SECRET_KEY='YourStrongUniqueSecretKey'
+   DJANGO_SECRET_KEY='YourStrongUniqueSecretKey'
+   DJANGO_DEBUG='True'
    ```
    You can generate a strong key using Python:
    ```bash

@@ -24,6 +24,7 @@ footer {
 .special-display-container {
     display: flex;
     flex-wrap: nowrap;
+    flex-direction: row;
     overflow-x: auto;
     overflow-y: hidden;
 }
@@ -31,8 +32,6 @@ footer {
 .special-item {
     flex: 0 0 auto;
     transition: transform 0.3s ease;
-    min-width: 400px;
-    min-height: 300px;
     transform: scale(0.98);
 }
 
@@ -45,22 +44,12 @@ footer {
     .carousel-img {
         height: 400px;
     }
-
-    .special-item {
-        min-width: 300px;
-        min-height: 200px;
-    }
 }
 
 /* Medium screens */
 @media screen and (max-width: 768px) {
     .carousel-img {
         height: 300px;
-    }
-
-    .special-item {
-        min-width: 200px;
-        min-height: 100px;
     }
 }
 
@@ -69,10 +58,4 @@ footer {
     .carousel-img {
         height: 250px;
     }
-
-    .special-item {
-        min-width: 180px;
-        min-height: 80px;
-    }
-
 }

@@ -1,6 +1,6 @@
 {% load static %}
 
-<div class="card h-100" id="category-{{ category.id }}">
+<div class="card h-100 shadow" id="category-{{ category.id }}">
     <a href="{% url 'menu:menu' %}?category={{ category.id }}" class="text-decoration-none text-body">
         {% if category.image %}
             <div class="ratio ratio-4x3 bg-body-secondary rounded">

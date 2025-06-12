@@ -44,7 +44,7 @@ These features empower administrators and staff to manage the menu efficiently:
 
 ### Requirements
 
-* **Python**: 3.13.3 or higher (or compatible with Django's latest versions)
+* **Python**: 3.8 or higher (or compatible with Django's latest versions)
 * **Pip**: Ensure you have a recent version of pip installed.
 
 ---

@@ -51,7 +51,7 @@ These features empower administrators and staff to manage the menu efficiently:
 
 ## Getting Started
 
-To set up and run this project locally, please refer to the detailed instructions in the 
+To set up and run this project locally, please refer to the detailed instructions in the
 [INSTALLATION.md](INSTALLATION.md) file. This guide covers:
 
 * System requirements
@@ -61,7 +61,6 @@ To set up and run this project locally, please refer to the detailed instruction
 * Database migrations
 * Creating an admin superuser
 * Running the server locally
-
 
 ---
 

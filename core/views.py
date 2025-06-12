@@ -10,3 +10,7 @@ def index_view(request):
         'title': 'Home',
         'special_items': special_items
     })
+
+
+def learn_more_view(request):
+    return render(request, 'core/learn_more.html')

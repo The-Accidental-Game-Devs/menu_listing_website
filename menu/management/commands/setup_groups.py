@@ -7,7 +7,7 @@ class Command(BaseCommand):
 
     def handle(self, *args, **kwargs):
         group_permissions = {'Item Manager': ['add_item', 'change_item', 'delete_item'],
-            'Category Manager': ['add_category', 'change_category', 'delete_category'], }
+                             'Category Manager': ['add_category', 'change_category', 'delete_category'], }
 
         for group_name, perm_codenames in group_permissions.items():
             group, created = Group.objects.get_or_create(name=group_name)

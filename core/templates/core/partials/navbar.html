@@ -21,6 +21,10 @@
                        aria-current="page" href="{% url 'menu:category' %}">Category</a>
                 </li>
                 <li class="nav-item">
+                    <a class="nav-link {% if request.resolver_match.url_name == 'learn_more' %}active{% endif %}"
+                       aria-current="page" href="{% url 'core:learn_more' %}">Learn more</a>
+                </li>
+                <li class="nav-item">
                     <a class="nav-link d-flex align-items-center gap-1" href="#" id="theme-toggle">
                         <i id="theme-icon" class="bi bi-moon"></i> Theme
                     </a>

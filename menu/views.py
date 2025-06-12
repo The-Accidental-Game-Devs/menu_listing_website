@@ -1,5 +1,6 @@
 from django.contrib import messages
-from django.contrib.auth.decorators import login_required, permission_required
+from django.contrib.admin.views.decorators import staff_member_required
+from django.contrib.auth.decorators import permission_required
 from django.core.exceptions import PermissionDenied
 from django.db.models import Q
 from django.http import JsonResponse
@@ -12,7 +13,7 @@ from .forms import NewItemForm, EditItemForm, CategoryForm
 from .models import Item, Category
 
 
-@login_required
+@staff_member_required
 @permission_required('menu.can_create_item')
 def new_item_view(request):
     if request.method == 'POST':
@@ -30,7 +31,7 @@ def new_item_view(request):
     return render(request, 'menu/form.html', {'title': 'New item', 'form': form, 'button_text': 'Create Item', })
 
 
-@login_required
+@staff_member_required
 @permission_required('menu.can_edit_item')
 def edit_item_view(request, pk):
     item = get_object_or_404(Item, pk=pk)
@@ -67,7 +68,7 @@ def delete_item_object(pk, user) -> str:
 
 
 @require_POST
-@login_required
+@staff_member_required
 def delete_item_view(request, pk):
     if request.headers.get('x-requested-with') != 'XMLHttpRequest':
         return JsonResponse({'success': False, 'message': 'Invalid request'}, status=400)
@@ -111,7 +112,7 @@ def detail_view(request, pk):
     return render(request, 'menu/detail.html', {'item': item})
 
 
-@login_required
+@staff_member_required
 @permission_required('menu.can_create_category')
 def new_category_view(request):
     if request.method == 'POST':
@@ -130,7 +131,7 @@ def new_category_view(request):
                   {'title': 'New category', 'form': form, 'button_text': 'Create category', })
 
 
-@login_required
+@staff_member_required
 @permission_required('menu.can_edit_category')
 def edit_category_view(request, pk):
     category = get_object_or_404(Category, pk=pk)
@@ -168,7 +169,7 @@ def delete_category_object(pk, user) -> str:
 
 
 @require_POST
-@login_required
+@staff_member_required
 def delete_category_view(request, pk):
     if request.headers.get('x-requested-with') != 'XMLHttpRequest':
         return JsonResponse({'success': False, 'message': 'Invalid request'}, status=400)

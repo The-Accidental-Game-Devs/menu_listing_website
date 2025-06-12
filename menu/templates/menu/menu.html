@@ -22,14 +22,14 @@
         </div>
     </div>
 
-    {% if perms.menu.can_create_item %}
+    {% if perms.menu.add_item %}
         <a href="{% url 'menu:new_item' %}" class="btn btn-primary position-fixed bottom-0 end-0 mb-3 me-3">New Item</a>
     {% endif %}
 {% endblock %}
 
 {% block scripts %}
     <script src={% static 'menu/js/fetch_item.js' %}></script>
-    {% if perms.menu.can_delete_item %}
+    {% if perms.menu.delete_item %}
         <script type="module" src="{% static 'menu/js/delete_item.js' %}"></script>
     {% endif %}
 {% endblock %}

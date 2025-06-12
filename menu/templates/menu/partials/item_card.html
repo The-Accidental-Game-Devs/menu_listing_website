@@ -27,11 +27,11 @@
         {% if request.resolver_match.url_name == 'menu' %}
             <div>
                 <p><strong>Price: </strong>{{ item.price }} {{ item.currency }}</p>
-                {% if perms.menu.can_edit_item %}
+                {% if perms.menu.change_item %}
                     <a href="{% url 'menu:edit_item' pk=item.id %}"
                        class="btn btn-primary btn-sm">Edit</a>
                 {% endif %}
-                {% if perms.menu.can_delete_item %}
+                {% if perms.menu.change_item %}
                     <button class="btn btn-sm btn-danger delete-item-btn" data-id="{{ item.id }}"
                             data-context="list">
                         Delete

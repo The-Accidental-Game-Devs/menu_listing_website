@@ -18,7 +18,7 @@
         <div class="row my-3" id="category-container">
         </div>
     </div>
-    {% if perms.menu.can_create_category %}
+    {% if perms.menu.add_category %}
         <a href="{% url 'menu:new_category' %}" class="btn btn-primary position-fixed bottom-0 end-0 mb-3 me-3">New
             Category</a>
     {% endif %}
@@ -26,7 +26,7 @@
 
 {% block scripts %}
     <script src="{% static 'menu/js/fetch_category.js' %}"></script>
-    {% if perms.menu.can_delete_category %}
+    {% if perms.menu.delete_category %}
         <script type="module" src="{% static 'menu/js/delete_category.js' %}"></script>
     {% endif %}
 {% endblock %}

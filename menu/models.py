@@ -7,14 +7,6 @@ from django.core.files.base import ContentFile
 from django.db import models
 
 
-# Custom function to generate permissions
-def custom_permissions(model_name: str):
-    permissions = [(f'can_create_{model_name}', f'Can create {model_name}'),
-                   (f'can_edit_{model_name}', f'Can edit {model_name}'),
-                   (f'can_delete_{model_name}', f'Can delete {model_name}'), ]
-    return permissions
-
-
 class Currency(models.Model):
     name = models.CharField(max_length=255)
     symbol = models.CharField(max_length=20)
@@ -22,7 +14,6 @@ class Currency(models.Model):
     class Meta:
         ordering = ('name',)
         verbose_name_plural = 'Currencies'
-        permissions = custom_permissions('currency')
 
     def __str__(self):
         return self.name
@@ -73,7 +64,6 @@ class Category(CustomModel):
     class Meta:
         ordering = ('name',)
         verbose_name_plural = 'Categories'
-        permissions = custom_permissions('category')
 
     def __str__(self):
         return f'{self.name} - {self.created_by} - {self.created_at}'
@@ -91,7 +81,6 @@ class Item(CustomModel):
 
     class Meta:
         ordering = ('-created_at',)
-        permissions = custom_permissions('item')
 
     def __str__(self):
         return f'{self.name} - {self.created_by} - {self.created_at}'

@@ -4,8 +4,12 @@
 
 ## Description
 
-This project is an open-source website built with **Django and Bootstrap**, designed to be flexible and user-friendly.
+This project is an open-source website built with **Django and Bootstrap**, designed to be flexible and user-friendly.  
 It provides all the core features you need to manage your online menu listing efficiently.
+
+> **Warning**
+>
+> This project is **not production-ready**. It is under active development and intended for local development, testing, and experimentation only. Features are incomplete, and breaking changes may occur. Please do not use this in a production environment.
 
 ---
 

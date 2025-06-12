@@ -36,10 +36,10 @@
                 <p>{{ item.detail }}</p>
 
                 <div>
-                    {% if perms.menu.can_edit_item %}
+                    {% if perms.menu.add_item %}
                         <a href="{% url 'menu:edit_item' pk=item.id %}" class="btn btn-primary me-2">Edit</a>
                     {% endif %}
-                    {% if perms.menu.can_delete_item %}
+                    {% if perms.menu.delete_item %}
                         <button class="btn btn-danger me-2 delete-item-btn" data-id="{{ item.id }}"
                                 data-context="detail">Delete
                         </button>

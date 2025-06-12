@@ -14,7 +14,7 @@ from .models import Item, Category
 
 
 @staff_member_required
-@permission_required('menu.can_create_item')
+@permission_required('menu.add_item', raise_exception=True)
 def new_item_view(request):
     if request.method == 'POST':
         form = NewItemForm(request.POST, request.FILES)
@@ -32,7 +32,7 @@ def new_item_view(request):
 
 
 @staff_member_required
-@permission_required('menu.can_edit_item')
+@permission_required('menu.change_item', raise_exception=True)
 def edit_item_view(request, pk):
     item = get_object_or_404(Item, pk=pk)
 
@@ -59,7 +59,7 @@ def edit_item_view(request, pk):
 def delete_item_object(pk, user) -> str:
     item = get_object_or_404(Item, pk=pk)
 
-    if not user.has_perm('menu.can_delete_item'):
+    if not user.has_perm('menu.delete_item'):
         raise PermissionDenied
 
     item_name = item.name
@@ -113,7 +113,7 @@ def detail_view(request, pk):
 
 
 @staff_member_required
-@permission_required('menu.can_create_category')
+@permission_required('menu.add_category', raise_exception=True)
 def new_category_view(request):
     if request.method == 'POST':
         form = CategoryForm(request.POST, request.FILES)
@@ -132,7 +132,7 @@ def new_category_view(request):
 
 
 @staff_member_required
-@permission_required('menu.can_edit_category')
+@permission_required('menu.change_category', raise_exception=True)
 def edit_category_view(request, pk):
     category = get_object_or_404(Category, pk=pk)
 
@@ -160,7 +160,7 @@ def edit_category_view(request, pk):
 def delete_category_object(pk, user) -> str:
     category = get_object_or_404(Category, pk=pk)
 
-    if not user.has_perm('menu.can_delete_category'):
+    if not user.has_perm('menu.delete_category'):
         raise PermissionDenied
 
     category_name = category.name

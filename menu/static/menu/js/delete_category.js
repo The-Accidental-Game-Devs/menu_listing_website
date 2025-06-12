@@ -1,4 +1,4 @@
-import {getCookie} from "./utils";
+import {getCookie} from "./utils.js";
 
 document.addEventListener('DOMContentLoaded', function () {
     const container = document.getElementById('category-container');

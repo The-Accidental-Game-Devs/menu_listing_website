@@ -103,7 +103,7 @@ def menu_view(request):
         return JsonResponse({'html': html})
 
     return render(request, 'menu/menu.html', {'title': 'Menu', 'search_query': search_query, 'categories': categories,
-                                              'category_filter': category_filter, })
+                                              'category_filter': category_filter, 'items': items})
 
 
 def detail_view(request, pk):
@@ -191,4 +191,4 @@ def category_view(request):
         html = render_to_string('menu/partials/category_list.html', {'categories': categories}, request=request)
         return JsonResponse({'html': html})
 
-    return render(request, 'menu/category.html', {'title': 'Category', 'search_query': search_query, })
+    return render(request, 'menu/category.html', {'title': 'Category', 'search_query': search_query, 'categories': categories, })
